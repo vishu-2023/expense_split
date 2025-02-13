@@ -4,3 +4,4 @@ Color white = Colors.white;
 Color black = Colors.black;
 Color surface = Colors.grey.shade200;
 Color iconColor = Colors.grey.shade600;
+Color strokeColor = Colors.grey.shade400;
