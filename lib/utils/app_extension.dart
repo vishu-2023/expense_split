@@ -36,15 +36,14 @@ extension TextWeight on TextStyle {
 }
 
 extension StringExtension on String {
-  Widget appCircleIconButton(
-    BuildContext context, {
+  Widget appCircleIconButton({
     VoidCallback? onPressed,
   }) {
     return UnconstrainedBox(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: InkWell(
-          onTap: onPressed ?? () => Navigator.maybePop(context),
+          onTap: onPressed,
           child: DecoratedBox(
             decoration: BoxDecoration(
               border: Border.all(color: strokeColor),
