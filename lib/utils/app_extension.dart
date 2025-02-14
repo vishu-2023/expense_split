@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:split_expense/utils/app_colors.dart';
 import 'package:split_expense/utils/app_constant.dart';
 
@@ -33,33 +32,4 @@ extension TextWeight on TextStyle {
   TextStyle get semiBold => copyWith(fontWeight: FontWeight.w600);
   TextStyle get bold => copyWith(fontWeight: FontWeight.bold);
   TextStyle get extraBold => copyWith(fontWeight: FontWeight.w800);
-}
-
-extension StringExtension on String {
-  Widget appCircleIconButton({
-    VoidCallback? onPressed,
-  }) {
-    return UnconstrainedBox(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: InkWell(
-          onTap: onPressed,
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              border: Border.all(color: strokeColor),
-              shape: BoxShape.circle,
-            ),
-            child: CircleAvatar(
-              radius: 18,
-              backgroundColor: Colors.transparent,
-              child: SvgPicture.asset(
-                this,
-                colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 }
