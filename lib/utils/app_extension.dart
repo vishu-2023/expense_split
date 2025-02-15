@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:split_expense/utils/app_colors.dart';
 import 'package:split_expense/utils/app_constant.dart';
 
@@ -24,6 +25,14 @@ extension WidgetExtension on Widget {
         ),
         child: this,
       );
+}
+
+extension DateTimeE7n on DateTime {
+  /// yyyy-MM-dd
+  String get getDefaultDateFormat => DateFormat('yyyy-MM-dd').format(this);
+
+  /// yyyy-MM-dd hh:mm a
+  String get getDefaultDateTimeFormat => DateFormat('yyyy-MM-dd').add_jm().format(this);
 }
 
 extension TextWeight on TextStyle {

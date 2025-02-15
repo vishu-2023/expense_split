@@ -20,4 +20,7 @@ class AppIcons {
   static const String userGirl = '$iconPath/user2.svg';
   static const String backArrow = '$iconPath/back-arrow.svg';
   static const String notification = '$iconPath/notification.svg';
+  static const String moreOption = '$iconPath/more.svg';
+  static const String splitBill = '$iconPath/splitbill.svg';
+  static const String transfer = '$iconPath/transfer.svg';
 }
