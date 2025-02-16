@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:split_expense/core/routes/app_pages.dart';
 import 'package:split_expense/designs/components/app_button.dart';
+import 'package:split_expense/designs/components/app_circle_avtar_grup.dart';
 import 'package:split_expense/designs/components/app_viewall_row.dart';
 import 'package:split_expense/designs/components/select_images.dart';
 import 'package:split_expense/designs/screens/tabs/home/home_controller.dart';
@@ -123,11 +125,10 @@ class OptionCard extends StatelessWidget {
               onPressed: () {},
             ),
             OptionBox(
-              bgColor: softPurple,
-              title: 'Split Bill',
-              icon: AppIcons.splitBill,
-              onPressed: () {},
-            ),
+                bgColor: softPurple,
+                title: 'Split Bill',
+                icon: AppIcons.splitBill,
+                onPressed: () => Get.toNamed(Routes.CREATESPLIT)),
             OptionBox(
               bgColor: softPink,
               title: 'More',
@@ -242,41 +243,15 @@ class HistoryViewCard extends StatelessWidget {
           ),
           Row(
             children: [
-              Container(
-                width: 80,
-                height: 40,
-                color: Colors.white,
-                child: Stack(
-                  children: <Widget>[
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: CircleAvatar(
-                        backgroundColor: Colors.white,
-                        child: CircleAvatar(
-                          radius: 16,
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.center,
-                      child: CircleAvatar(
-                        backgroundColor: Colors.white,
-                        child: CircleAvatar(
-                          radius: 16,
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: CircleAvatar(
-                        backgroundColor: Colors.white,
-                        child: CircleAvatar(
-                          radius: 16,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+              UserAvatarGroups(
+                imageUrls: [
+                  AppIcons.userBoy,
+                  AppIcons.userBoy,
+                  AppIcons.userGirl,
+                  AppIcons.userBoy,
+                  AppIcons.userBoy,
+                  AppIcons.userGirl,
+                ],
               ),
               Spacer(),
               Column(
