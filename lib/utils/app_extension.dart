@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:split_expense/utils/app_colors.dart';
@@ -41,4 +43,14 @@ extension TextWeight on TextStyle {
   TextStyle get semiBold => copyWith(fontWeight: FontWeight.w600);
   TextStyle get bold => copyWith(fontWeight: FontWeight.bold);
   TextStyle get extraBold => copyWith(fontWeight: FontWeight.w800);
+}
+
+extension BuildContextExtension on BuildContext{
+  double get topPadding => math.max(statusBarHeight + 15, 15);
+
+  double get bottomPadding => math.max(bottomSafeHeight + 15, 15);
+
+  double get statusBarHeight => MediaQuery.of(this).viewPadding.top;
+
+  double get bottomSafeHeight => MediaQuery.of(this).viewPadding.bottom;
 }

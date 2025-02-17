@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:split_expense/core/routes/app_pages.dart';
-import 'package:split_expense/designs/screens/app_bottom_navbar.dart';
 import 'package:split_expense/utils/app_colors.dart';
 
 import 'designs/components/lifecycle_manager.dart';
@@ -22,7 +21,7 @@ class MyApp extends StatelessWidget {
           title: 'Flutter Demo',
           getPages: AppPages.appPages,
           debugShowCheckedModeBanner: false,
-          home: AppBottomNavbar(),
+          initialRoute: Routes.LOGIN,
           theme: ThemeData(
               scaffoldBackgroundColor: surface, appBarTheme: AppBarTheme(backgroundColor: white)),
         ),

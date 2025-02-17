@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:split_expense/designs/screens/startup/login_controller.dart';
+import 'package:split_expense/designs/screens/startup/login_view.dart';
 import 'package:split_expense/designs/screens/tabs/home/split/create_split_controller.dart';
 import 'package:split_expense/designs/screens/tabs/home/split/create_split_view.dart';
 
@@ -13,7 +15,11 @@ class AppPages {
           name: _Paths.CREATESPLIT,
           page: () => const CreateSplitView(),
           binding: BindingsBuilder(
-              () => Get.lazyPut<CreateSplitController>(() => CreateSplitController())))
+              () => Get.lazyPut<CreateSplitController>(() => CreateSplitController()))),
+      GetPage(
+          name: _Paths.LOGIN,
+          page: () => LoginView(),
+          binding: BindingsBuilder(() => Get.lazyPut<LoginController>(() => LoginController())))
     ];
   }
 }

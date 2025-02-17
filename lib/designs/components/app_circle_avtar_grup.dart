@@ -52,6 +52,7 @@ class UserAvatarGroups extends StatelessWidget {
               child: CircleAvatar(
                 backgroundColor: surface,
                 radius: avatarRadius - 2,
+                // backgroundImage: AssetImage(imageUrls[index]),
                 child: ClipOval(child: selectIcon(imageUrls[index])),
               ),
             ),
