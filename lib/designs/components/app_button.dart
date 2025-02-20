@@ -59,7 +59,7 @@ class AppButton extends StatelessWidget {
   static const defaultHeight = 52.0;
 
   /// 32.0
-  static const defaultBorderRadius = 32.0;
+  static const defaultBorderRadius = 4.0;
 
   ///16.0
   static const defaultLabelFontSize = 16.0;

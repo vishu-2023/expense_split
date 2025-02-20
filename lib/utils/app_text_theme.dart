@@ -13,7 +13,7 @@ class TextThemeX {
       fontFamily: appFontFamily,
       fontSize: 16,
       color: black,
-      overflow: appTextOverFlow,
+      //overflow: appTextOverFlow,
       letterSpacing: -.24);
   TextStyle get text18 => TextStyle(
       fontFamily: appFontFamily,
