@@ -18,81 +18,82 @@ class LoginView extends StatelessWidget {
       return Scaffold(
         body: SingleChildScrollView(
           child: Form(
+              key: controller.phoneNumberKey,
               child: Column(
-            children: [
-              SizedBox(
-                height: context.topPadding + 30,
-              ),
-              selectIcon(AppIcons.userBoy, width: 50),
-              SizedBox(height: 16),
-              AppTextfield(
-                keyboardType: TextInputType.phone,
-                hintText: "Enter 10 Digit Phone Number",
-                controller: controller.numberController,
-              ),
-              SizedBox(height: 14),
-              AppButton(
-                label: "Get Otp",
-                backgroundColor: black,
-                labelColor: white,
-                onPressed: () async {
-                  Get.dialog(OtpPopupView());
-                },
-              )
-            ],
-          ).paddingSymmetric(horizontal: 16)),
+                children: [
+                  SizedBox(
+                    height: context.topPadding + 30,
+                  ),
+                  selectIcon(AppIcons.userBoy, width: 50),
+                  SizedBox(height: 16),
+                  AppTextfield(
+                    keyboardType: TextInputType.phone,
+                    hintText: "Enter 10 Digit Phone Number",
+                    controller: controller.phoneNumberController,
+                  ),
+                  SizedBox(height: 14),
+                  Obx(() => AppButton(
+                        label: "Get Otp",
+                        backgroundColor: black,
+                        labelColor: white,
+                        isLoading: controller.isSending.value,
+                        onPressed: () async {
+                          await controller.sendOtp();
+                          Get.dialog(OtpPopupView());
+                        },
+                      ))
+                ],
+              ).paddingSymmetric(horizontal: 16)),
         ),
       );
     });
   }
 }
 
-class OtpPopupView extends StatefulWidget {
+class OtpPopupView extends StatelessWidget {
   const OtpPopupView({super.key});
-  @override
-  State<OtpPopupView> createState() => _OtpPopupViewState();
-}
-
-class _OtpPopupViewState extends State<OtpPopupView> {
   @override
   Widget build(BuildContext context) {
     RxDouble timer = 30.00.obs;
-    return Center(
-        child: Material(
-      borderRadius: BorderRadius.circular(8),
-      color: surface,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            "We will send  you a one time password to  your  mobile number",
-            textAlign: TextAlign.center,
-            style: TextThemeX().text16.medium,
-          ),
-          SizedBox(height: 24),
-          AppTextfield(
-            labelText: "Enter Otp",
-          ),
-          SizedBox(
-            height: 16,
-          ),
-          Obx(() => Text(
-                "You can Resend Otp After $timer Seconds",
-                textAlign: TextAlign.center,
-                style: TextThemeX().text16.medium,
-              )),
-          SizedBox(
-            height: 16,
-          ),
-          AppButton(
-            backgroundColor: black,
-            label: "veryfy otp",
-            labelColor: white,
-            onPressed: () {},
-          )
-        ],
-      ).paddingSymmetric(horizontal: 16, vertical: 8),
-    ).paddingSymmetric(horizontal: 16));
+    return GetBuilder<LoginController>(builder: (controller) {
+      return Center(
+          child: Material(
+        borderRadius: BorderRadius.circular(8),
+        color: surface,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              "We will send  you a one time password to  your  mobile number",
+              textAlign: TextAlign.center,
+              style: TextThemeX().text16.medium,
+            ),
+            SizedBox(height: 24),
+            AppTextfield(
+              labelText: "Enter Otp",
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            Obx(() => Text(
+                  "You can Resend Otp After $timer Seconds",
+                  textAlign: TextAlign.center,
+                  style: TextThemeX().text16.medium,
+                )),
+            SizedBox(
+              height: 16,
+            ),
+            AppButton(
+              backgroundColor: black,
+              label: "veryfy otp",
+              isLoading: controller.isVerifying.value,
+              labelColor: white,
+              onPressed: () => controller.verifyOtp(),
+            )
+          ],
+        ).paddingSymmetric(horizontal: 16, vertical: 8),
+      ).paddingSymmetric(horizontal: 16));
+    });
   }
 }

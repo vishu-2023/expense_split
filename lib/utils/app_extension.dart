@@ -1,9 +1,12 @@
 import 'dart:math' as math;
 
+import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:split_expense/utils/app_colors.dart';
 import 'package:split_expense/utils/app_constant.dart';
+import 'package:split_expense/utils/app_text_theme.dart';
 
 extension WidgetExtension on Widget {
   Container appContainer({
@@ -45,7 +48,7 @@ extension TextWeight on TextStyle {
   TextStyle get extraBold => copyWith(fontWeight: FontWeight.w800);
 }
 
-extension BuildContextExtension on BuildContext{
+extension BuildContextExtension on BuildContext {
   double get topPadding => math.max(statusBarHeight + 15, 15);
 
   double get bottomPadding => math.max(bottomSafeHeight + 15, 15);
@@ -53,4 +56,95 @@ extension BuildContextExtension on BuildContext{
   double get statusBarHeight => MediaQuery.of(this).viewPadding.top;
 
   double get bottomSafeHeight => MediaQuery.of(this).viewPadding.bottom;
+}
+
+extension ResponseE7n on dio.Response {
+  bool get isSuccess => statusCode! >= 200 || statusCode! < 300;
+}
+
+extension StringExtension on String {
+  dynamic errorSnackbar({void Function(GetSnackBar)? onTap}) {
+    final colors = softPink;
+
+    Get
+      ..closeAllSnackbars()
+      ..rawSnackbar(
+        onTap: onTap,
+        borderRadius: 16,
+        snackPosition: SnackPosition.TOP,
+        duration: const Duration(seconds: 4),
+        borderColor: colors,
+        backgroundColor: colors,
+        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        icon: CircleAvatar(
+          radius: 12,
+          backgroundColor: colors,
+          // child: SvgPicture.asset(AppSnackbarIcons.error),
+        ),
+        messageText: Text(
+          this,
+          overflow: TextOverflow.visible,
+          style: TextThemeX().text14.copyWith(
+                letterSpacing: 0,
+                color: white,
+              ),
+        ),
+      );
+  }
+
+  dynamic successSnackbar({void Function(GetSnackBar)? onTap}) {
+    final colors = softPurple;
+
+    Get
+      ..closeAllSnackbars()
+      ..rawSnackbar(
+        onTap: onTap,
+        borderRadius: 16,
+        snackPosition: SnackPosition.TOP,
+        borderColor: colors,
+        backgroundColor: colors,
+        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        icon: CircleAvatar(
+          radius: 12,
+          backgroundColor: colors,
+          // child: SvgPicture.asset(AppSnackbarIcons.success),
+        ),
+        messageText: Text(
+          this,
+          overflow: TextOverflow.visible,
+          style: TextThemeX().text14.copyWith(
+                letterSpacing: 0,
+                color: colors,
+              ),
+        ),
+      );
+  }
+
+  dynamic infoSnackbar({void Function(GetSnackBar)? onTap}) {
+    final colors = softOrange;
+
+    Get
+      ..closeAllSnackbars()
+      ..rawSnackbar(
+        onTap: onTap,
+        borderRadius: 16,
+        snackPosition: SnackPosition.TOP,
+        borderColor: colors,
+        backgroundColor: colors,
+        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        icon: CircleAvatar(
+          radius: 12,
+          backgroundColor: iconColor,
+          // child: SvgPicture.asset(AppSnackbarIcons.info),
+        ),
+        messageText: Text(
+          this,
+          overflow: TextOverflow.visible,
+          style: TextThemeX().text14.copyWith(
+                letterSpacing: 0,
+                color: white,
+              ),
+        ),
+      );
+  }
 }
