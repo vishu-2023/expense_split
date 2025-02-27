@@ -1,24 +1,28 @@
+import 'package:split_expense/core/models/get_user_model.dart';
 import 'package:split_expense/core/models/response_model.dart';
 import 'package:split_expense/core/services/base_services.dart';
+import 'package:split_expense/core/services/sf_services.dart';
 
 class AuthProviders with BaseService {
-  Future<GetResponseModel> sendOtp({required String phoneNumber}) async {
-    return await tryOrCatch<GetResponseModel>(() async {
+  Future<int> sendOtp({required String phoneNumber}) async {
+    return await tryOrCatch<int>(() async {
       final response = await dio.post(
         "splitwise.mobile.$apiVersion.send_otp",
         data: {"mobile_no": phoneNumber},
       );
-      return GetResponseModel.fromResponse(response.data["otp"]);
+      return response.data["data"]["otp"];
     });
   }
 
-  Future<GetResponseModel> verifyOtp({required String phoneNumber, required String otp}) async {
-    return await tryOrCatch<GetResponseModel>(() async {
+  Future<GetUserModel> verifyOtp({required String phoneNumber, required String otp}) async {
+    return await tryOrCatch<GetUserModel>(() async {
       final response = await dio.post(
         "splitwise.mobile.$apiVersion.verify_otp",
         data: {"mobile_no": phoneNumber, "otp": otp},
       );
-      return GetResponseModel.fromResponse(response);
+      final GetUserModel user = GetUserModel.fromMap(response.data);
+      SFServices.setUser(user);
+      return user;
     });
   }
 }

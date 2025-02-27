@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
           getPages: AppPages.appPages,
           debugShowCheckedModeBanner: false,
           initialRoute: Routes.LOGIN,
+          initialBinding: BindingX.intialBindings(),
           theme: ThemeData(
               scaffoldBackgroundColor: surface, appBarTheme: AppBarTheme(backgroundColor: white)),
         ),

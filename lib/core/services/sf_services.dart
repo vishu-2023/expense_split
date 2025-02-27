@@ -1,4 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:split_expense/core/models/get_user_model.dart';
 
 class SFServices {
   SFServices._();
@@ -10,8 +11,7 @@ class SFServices {
     _sharedPreferences = await SharedPreferences.getInstance();
   }
 
- static Future<void> setUser() async {
-    //await _sharedPreferences.setString();
+  static Future<void> setUser(GetUserModel user) async {
+    await _sharedPreferences.setString("user", "$user");
   }
- 
 }

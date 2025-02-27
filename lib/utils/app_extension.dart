@@ -64,7 +64,7 @@ extension ResponseE7n on dio.Response {
 
 extension StringExtension on String {
   dynamic errorSnackbar({void Function(GetSnackBar)? onTap}) {
-    final colors = softPink;
+    final colors = softPink.withOpacity(0.5);
 
     Get
       ..closeAllSnackbars()
@@ -86,14 +86,14 @@ extension StringExtension on String {
           overflow: TextOverflow.visible,
           style: TextThemeX().text14.copyWith(
                 letterSpacing: 0,
-                color: white,
+                color: black,
               ),
         ),
       );
   }
 
   dynamic successSnackbar({void Function(GetSnackBar)? onTap}) {
-    final colors = softPurple;
+    final colors = softPurple.withOpacity(0.5);
 
     Get
       ..closeAllSnackbars()
@@ -114,14 +114,14 @@ extension StringExtension on String {
           overflow: TextOverflow.visible,
           style: TextThemeX().text14.copyWith(
                 letterSpacing: 0,
-                color: colors,
+                color: black,
               ),
         ),
       );
   }
 
   dynamic infoSnackbar({void Function(GetSnackBar)? onTap}) {
-    final colors = softOrange;
+    final colors = softOrange.withOpacity(0.5);
 
     Get
       ..closeAllSnackbars()
@@ -142,7 +142,7 @@ extension StringExtension on String {
           overflow: TextOverflow.visible,
           style: TextThemeX().text14.copyWith(
                 letterSpacing: 0,
-                color: white,
+                color: black,
               ),
         ),
       );
