@@ -6,6 +6,7 @@ Color surface = Colors.grey.shade200;
 Color iconColor = Colors.grey.shade600;
 Color strokeColor = Colors.grey.shade400;
 Color errorColor = Colors.redAccent.shade100;
+Color primary = Color(0xffFF8383);
 
 // app light colors
 Color softOrange = Colors.orange;

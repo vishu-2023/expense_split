@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:split_expense/designs/components/app_button.dart';
 import 'package:split_expense/designs/components/app_textfield.dart';
-import 'package:split_expense/designs/components/select_images.dart';
 import 'package:split_expense/designs/screens/startup/login_controller.dart';
 import 'package:split_expense/utils/app_assets.dart';
 import 'package:split_expense/utils/app_colors.dart';
@@ -16,36 +16,45 @@ class LoginView extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<LoginController>(builder: (controller) {
       return Scaffold(
-        body: SingleChildScrollView(
-          child: Form(
-              key: controller.phoneNumberKey,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: context.topPadding + 30,
-                  ),
-                  selectIcon(AppIcons.userBoy, width: 50),
-                  SizedBox(height: 16),
-                  AppTextfield(
-                    keyboardType: TextInputType.phone,
-                    hintText: "Enter 10 Digit Phone Number",
-                    controller: controller.phoneNumberController,
-                  ),
-                  SizedBox(height: 14),
-                  Obx(() => AppButton(
-                        label: "Get Otp",
-                        width: double.infinity,
-                        backgroundColor: black,
-                        labelColor: white,
-                        isLoading: controller.isSending.value,
-                        onPressed: () async {
-                          await controller.sendOtp();
-                          Get.dialog(OtpPopupView());
-                        },
-                      ))
-                ],
-              ).paddingSymmetric(horizontal: 16)),
-        ),
+        body: Form(
+            key: controller.phoneNumberKey,
+            child: Stack(children: [
+              SvgPicture.asset(
+                AppIcons.bg,
+                fit: BoxFit.cover,
+              ),
+              Positioned(
+                left: 16,
+                right: 16,
+                bottom: MediaQuery.of(context).viewInsets.bottom + 24,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Sign In", style: TextThemeX().text24.regular),
+                    SizedBox(height: 4),
+                    Container(width: 55, color: primary, height: 2),
+                    SizedBox(height: 120),
+                    TextFormField(
+                      keyboardType: TextInputType.phone,
+                      decoration: InputDecoration(hintText: "Enter Your Phone Number"),
+                      controller: controller.phoneNumberController,
+                    ),
+                    SizedBox(height: 14),
+                    Obx(() => AppButton(
+                          label: "Get OTP",
+                          width: double.infinity,
+                          backgroundColor: primary,
+                          labelColor: white,
+                          isLoading: controller.isSending.value,
+                          onPressed: () async {
+                            await controller.sendOtp();
+                            Get.dialog(OtpPopupView());
+                          },
+                        ))
+                  ],
+                ).paddingSymmetric(horizontal: 16),
+              ),
+            ])),
       );
     });
   }
@@ -55,7 +64,6 @@ class OtpPopupView extends StatelessWidget {
   const OtpPopupView({super.key});
   @override
   Widget build(BuildContext context) {
-    RxDouble timer = 30.00.obs;
     return GetBuilder<LoginController>(builder: (controller) {
       return WillPopScope(
         onWillPop: () async {
@@ -67,35 +75,39 @@ class OtpPopupView extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
           color: surface,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                "We will send  you a one time password to  your  mobile number",
+                "Verification Code",
                 textAlign: TextAlign.center,
-                style: TextThemeX().text16.medium,
+                style: TextThemeX().text24.semiBold.copyWith(fontSize: 22),
               ),
               SizedBox(height: 24),
+              Text(
+                "We've Sent a 6-digit verification code to ${controller.phoneNumberController.text}",
+                textAlign: TextAlign.center,
+                style: TextThemeX().text16.medium.copyWith(color: iconColor),
+              ),
+              SizedBox(height: 16),
               AppTextfield(
                 labelText: "Enter Otp",
                 controller: controller.otpController,
                 keyboardType: TextInputType.phone,
               ),
-              SizedBox(
-                height: 16,
+              SizedBox(height: 16),
+              Text(
+                "For demo purpose the OTP is ${controller.otp}",
+                textAlign: TextAlign.center,
+                style: TextThemeX().text16.medium.copyWith(color: iconColor),
               ),
-              Obx(() => Text(
-                    "You can Resend Otp After $timer Seconds",
-                    textAlign: TextAlign.center,
-                    style: TextThemeX().text16.medium,
-                  )),
               SizedBox(
                 height: 16,
               ),
               Obx(() => AppButton(
-                    backgroundColor: black,
+                    backgroundColor: primary,
                     width: double.infinity,
-                    label: "veryfy otp",
+                    label: "Verify OTP",
                     isLoading: controller.isVerifying.value,
                     labelColor: white,
                     onPressed: () => controller.verifyOtp(),

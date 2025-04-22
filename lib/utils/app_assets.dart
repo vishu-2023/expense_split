@@ -24,4 +24,5 @@ class AppIcons {
   static const String splitBill = '$iconPath/splitbill.svg';
   static const String transfer = '$iconPath/transfer.svg';
   static const String call = '$iconPath/call.svg';
+  static const String bg = '$iconPath/bg.svg';
 }
