@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:split_expense/designs/components/app_button.dart';
 import 'package:split_expense/designs/components/app_textfield.dart';
 import 'package:split_expense/designs/screens/startup/login_controller.dart';
-import 'package:split_expense/utils/app_assets.dart';
 import 'package:split_expense/utils/app_colors.dart';
 import 'package:split_expense/utils/app_extension.dart';
 import 'package:split_expense/utils/app_text_theme.dart';
@@ -17,44 +15,34 @@ class LoginView extends StatelessWidget {
     return GetBuilder<LoginController>(builder: (controller) {
       return Scaffold(
         body: Form(
-            key: controller.phoneNumberKey,
-            child: Stack(children: [
-              SvgPicture.asset(
-                AppIcons.bg,
-                fit: BoxFit.cover,
+          key: controller.phoneNumberKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("Sign In", style: TextThemeX().text24.regular),
+              SizedBox(height: 4),
+              Container(width: 55, color: primary, height: 2),
+              SizedBox(height: 120),
+              TextFormField(
+                keyboardType: TextInputType.phone,
+                decoration: InputDecoration(hintText: "Enter Your Phone Number"),
+                controller: controller.phoneNumberController,
               ),
-              Positioned(
-                left: 16,
-                right: 16,
-                bottom: MediaQuery.of(context).viewInsets.bottom + 24,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Sign In", style: TextThemeX().text24.regular),
-                    SizedBox(height: 4),
-                    Container(width: 55, color: primary, height: 2),
-                    SizedBox(height: 120),
-                    TextFormField(
-                      keyboardType: TextInputType.phone,
-                      decoration: InputDecoration(hintText: "Enter Your Phone Number"),
-                      controller: controller.phoneNumberController,
-                    ),
-                    SizedBox(height: 14),
-                    Obx(() => AppButton(
-                          label: "Get OTP",
-                          width: double.infinity,
-                          backgroundColor: primary,
-                          labelColor: white,
-                          isLoading: controller.isSending.value,
-                          onPressed: () async {
-                            await controller.sendOtp();
-                            Get.dialog(OtpPopupView());
-                          },
-                        ))
-                  ],
-                ).paddingSymmetric(horizontal: 16),
-              ),
-            ])),
+              SizedBox(height: 14),
+              Obx(() => AppButton(
+                    label: "Get OTP",
+                    width: double.infinity,
+                    backgroundColor: primary,
+                    labelColor: white,
+                    isLoading: controller.isSending.value,
+                    onPressed: () async {
+                      await controller.sendOtp();
+                      Get.dialog(OtpPopupView());
+                    },
+                  ))
+            ],
+          ).paddingSymmetric(horizontal: 16),
+        ),
       );
     });
   }
