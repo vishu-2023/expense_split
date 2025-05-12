@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pinput/pinput.dart';
 import 'package:split_expense/designs/components/app_button.dart';
-import 'package:split_expense/designs/components/app_textfield.dart';
 import 'package:split_expense/designs/screens/startup/login_controller.dart';
 import 'package:split_expense/utils/app_colors.dart';
 import 'package:split_expense/utils/app_extension.dart';
@@ -19,10 +19,11 @@ class LoginView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              SizedBox(height: 80),
               Text("Sign In", style: TextThemeX().text24.regular),
               SizedBox(height: 4),
               Container(width: 55, color: primary, height: 2),
-              SizedBox(height: 120),
+              SizedBox(height: 16),
               TextFormField(
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(hintText: "Enter Your Phone Number"),
@@ -64,6 +65,7 @@ class OtpPopupView extends StatelessWidget {
           color: surface,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
@@ -78,10 +80,19 @@ class OtpPopupView extends StatelessWidget {
                 style: TextThemeX().text16.medium.copyWith(color: iconColor),
               ),
               SizedBox(height: 16),
-              AppTextfield(
-                labelText: "Enter Otp",
-                controller: controller.otpController,
-                keyboardType: TextInputType.phone,
+              Center(
+                child: Pinput(
+                  length: 4,
+                  showCursor: false,
+                  controller: controller.otpController,
+                  onCompleted: (_) => controller.verifyOtp(),
+                  focusedPinTheme: PinTheme(
+                      decoration: BoxDecoration(border: Border.all(color: primary)),
+                      textStyle: TextThemeX().text16),
+                  disabledPinTheme: PinTheme(
+                    decoration: BoxDecoration(border: Border.all(color: primary)),
+                  ),
+                ),
               ),
               SizedBox(height: 16),
               Text(

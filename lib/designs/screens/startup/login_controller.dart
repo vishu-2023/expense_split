@@ -16,6 +16,7 @@ class LoginController extends GetxController {
     isSending.value = true;
     otp.value = await _authRepositories.sendOtp(phoneNumber: phoneNumberController.text) ?? 0;
     isSending.value = false;
+    phoneNumberController.clear();
   }
 
   Future<void> verifyOtp() async {
